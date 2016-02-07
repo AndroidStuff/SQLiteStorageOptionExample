@@ -4,5 +4,6 @@
     <string name="app_name">SQLiteStorageOptionExample</string>
     <string name="submit">Submit</string>
     <string name="hint">Enter text to save</string>
+    <string name="listUserInputs">List User Inputs</string>
 
 </resources>
