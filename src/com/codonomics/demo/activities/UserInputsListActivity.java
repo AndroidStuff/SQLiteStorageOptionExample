@@ -45,6 +45,8 @@ public class UserInputsListActivity extends Activity {
 				final String msg = String.format("Item %s at position %d was clicked", itemText, position);
 				Log.d(TAG, msg);
 				Toast.makeText(UserInputsListActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+				//Remove item from UI dynamically. IMHO, make changes to the source data model and notifying the adaptor ensures DATA CONSISTENCY
 				allUserInputs.remove(position);
 				arrayAdapter.notifyDataSetChanged();
 			}
