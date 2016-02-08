@@ -32,18 +32,21 @@ public class UserInputsListActivity extends Activity {
 		final List<String> allUserInputs = dbAdapter.getAllUserInputs();
 
 		listView = (ListView) findViewById(R.id.user_input_list_view);
-		listView.setAdapter(
-				new ArrayAdapter<String>(this,
-						android.R.layout.simple_selectable_list_item, //Note that this R instance is from Android and not local (check the namespace).
-						allUserInputs)
-				); //Ref.: Predefined item Layouts - http://developer.android.com/reference/android/R.layout.html
+		final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_selectable_list_item, //Note that this R instance is from Android and not local (check the namespace).
+				allUserInputs);
+		listView.setAdapter(arrayAdapter); //Ref.: Predefined item Layouts - http://developer.android.com/reference/android/R.layout.html
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				String itemText = ( (TextView) view ).getText().toString();
-				final String msg = String.format("Item %s at position %d is clicked", itemText, position);
+				String itemText = ( (TextView) view ).getText().toString().trim();
+				long value = dbAdapter.deleteUserInput(itemText);
+				boolean isDeleted = (value >= 0);
+				final String msg = String.format("Item %s at position %d was clicked", itemText, position);
 				Log.d(TAG, msg);
 				Toast.makeText(UserInputsListActivity.this, msg, Toast.LENGTH_SHORT).show();
+				allUserInputs.remove(position);
+				arrayAdapter.notifyDataSetChanged();
 			}
 		});
 	}

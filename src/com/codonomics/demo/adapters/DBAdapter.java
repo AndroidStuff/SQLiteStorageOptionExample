@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * In the Android dev. world, there is no SQL statements that an app dev writes.
@@ -14,6 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
  * This class essentially adopts DAO pattern. See that?
  */
 public class DBAdapter {
+	private static final String TAG = DBAdapter.class.getSimpleName();
 	private DBHelper dbHelper;
 	private SQLiteDatabase db;
 
@@ -61,6 +63,12 @@ public class DBAdapter {
 		return cursor.getCount() > 0;
 	}
 
+	public long deleteUserInput(String ip) {
+		Log.d(TAG, "About to delete "+ip);
+		String whereClause = String.format("%s=?", DBHelper.APPS_DB_COLUMNS[1]);
+		String[] whereArgs = {ip};
+		return db.delete(DBHelper.APPS_DB_TABLE, whereClause, whereArgs);
+	}
 	private Cursor getAllEntries() {
 		final String[] requiredColumns = {DBHelper.APPS_DB_COLUMNS[1]}; //Selecting the required columns
 		//query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy)
