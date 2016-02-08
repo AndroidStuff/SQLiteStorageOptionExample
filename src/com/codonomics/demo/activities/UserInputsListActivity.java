@@ -40,8 +40,8 @@ public class UserInputsListActivity extends Activity {
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				TextView textView = (TextView) view;
-				final String msg = String.format("Item %s at position %d is clicked", textView.getText().toString(), position);
+				String itemText = ( (TextView) view ).getText().toString();
+				final String msg = String.format("Item %s at position %d is clicked", itemText, position);
 				Log.d(TAG, msg);
 				Toast.makeText(UserInputsListActivity.this, msg, Toast.LENGTH_SHORT).show();
 			}
