@@ -10,19 +10,24 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends Activity {
 
 	private final String TAG = MainActivity.class.getSimpleName();
 	private DBAdapter dbAdapter;
-	private EditText userInputEditText;
+	@Bind(R.id.user_input) EditText userInputEditText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		userInputEditText = (EditText) findViewById(R.id.user_input);
+		ButterKnife.setDebug(true);
+		ButterKnife.bind(this);
+
 		dbAdapter = new DBAdapter(this);
 		dbAdapter.open();
 	}
@@ -33,7 +38,7 @@ public class MainActivity extends Activity {
 		dbAdapter.close();
 	}
 
-	//onClick Button Handler
+	@OnClick(R.id.submit)
 	public void saveToDB(View v) {
 		final String userInput = fetchUserInput();
 		if(dbAdapter.exists(userInput)) {
@@ -45,6 +50,7 @@ public class MainActivity extends Activity {
 		clearUserInputTextField();
 	}
 
+	@OnClick(R.id.listUserInputs)
 	public void listUserInputs(View v) {
 		final Intent intent = new Intent(this, UserInputsListActivity.class);
 		startActivity(intent);

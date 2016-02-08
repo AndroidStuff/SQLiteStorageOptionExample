@@ -5,6 +5,7 @@
 This app is for educational purpose of learning the following items:
 * Storage Mechanism: Read/Write data from/to SQLite DB in Android
 * ListView using ListAdaptor widget provided by Android API
+* Uses ButterKnife to Bind Views and stuff
 
 
 ## Reference/Inspiration/Motivation
