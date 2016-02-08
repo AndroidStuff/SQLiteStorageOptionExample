@@ -7,10 +7,17 @@ import com.codonomics.demo.adapters.DBAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserInputsListActivity extends Activity {
+	private final String TAG = UserInputsListActivity.class.getSimpleName();
+
 	private DBAdapter dbAdapter;
 	private ListView listView;
 
@@ -29,6 +36,15 @@ public class UserInputsListActivity extends Activity {
 				new ArrayAdapter<String>(this,
 						android.R.layout.simple_selectable_list_item, //Note that this R instance is from Android and not local (check the namespace).
 						allUserInputs)
-				); //Ref.:
+				); //Ref.: Predefined item Layouts - http://developer.android.com/reference/android/R.layout.html
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				TextView textView = (TextView) view;
+				final String msg = String.format("Item %s at position %d is clicked", textView.getText().toString(), position);
+				Log.d(TAG, msg);
+				Toast.makeText(UserInputsListActivity.this, msg, Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 }

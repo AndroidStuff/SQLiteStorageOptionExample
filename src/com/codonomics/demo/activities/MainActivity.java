@@ -15,8 +15,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends Activity {
-
 	private final String TAG = MainActivity.class.getSimpleName();
+
 	private DBAdapter dbAdapter;
 	@Bind(R.id.user_input) EditText userInputEditText;
 
